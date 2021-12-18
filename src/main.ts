@@ -7,6 +7,9 @@ import 'element-plus/dist/index.css'
 import router from './router'
 import store from './store'
 
+//
+import './service/axios_demo'
+
 const app = createApp(App)
 app.use(router)
 app.use(store)
