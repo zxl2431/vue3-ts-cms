@@ -3,8 +3,8 @@
     <!-- 标题 -->
     <h1 class="title">后台管理系统</h1>
     <!-- 账号、密码输入框 -->
-    <el-tabs type="border-card" stretch>
-      <el-tab-pane>
+    <el-tabs type="border-card" stretch v-model="currentTab">
+      <el-tab-pane name="account">
         <template #label>
           <span>
             <el-icon><circle-check-filled /></el-icon>账号登录</span
@@ -12,14 +12,14 @@
         </template>
         <login-account ref="accountRef"></login-account>
       </el-tab-pane>
-      <el-tab-pane>
+      <el-tab-pane name="phone">
         <template #label>
           <span>
             <el-icon><iphone /></el-icon>
             手机登录
           </span>
         </template>
-        <login-phone></login-phone>
+        <login-phone ref="phoneRef"></login-phone>
       </el-tab-pane>
     </el-tabs>
     <!-- 记住密码、忘记密码 -->
@@ -47,15 +47,23 @@ export default defineComponent({
   setup() {
     const isKeepPassword = ref(true)
     const accountRef = ref<InstanceType<typeof LoginAccount>>()
+    const phoneRef = ref<InstanceType<typeof LoginPhone>>()
+    const currentTab = ref('account')
 
     const handleLoginClick = () => {
-      // 调用login-account组件中的方法
-      accountRef.value?.loginAction()
+      if (currentTab.value === 'account') {
+        // 调用login-account组件中的方法 增加一个是否保存用户名/密码的变量
+        accountRef.value?.loginAction(isKeepPassword.value)
+      } else {
+        console.log('phoneRef调用loginAction')
+      }
     }
 
     return {
       isKeepPassword,
       accountRef,
+      phoneRef,
+      currentTab,
       handleLoginClick
     }
   }

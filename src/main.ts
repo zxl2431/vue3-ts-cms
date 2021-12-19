@@ -26,24 +26,24 @@ for (const name in Icons) {
 app.mount('#app')
 // console.log(process.env.NODE_ENV)
 
-const res = hyRequest.request({
-  url: '/home/multidata',
-  method: 'GET',
-  headers: {},
-  interceptors: {
-    requestInterceptor: (config) => {
-      console.log('单独请求的config')
-      return config
-    },
-    resonpseInterceptor: (res) => {
-      console.log('单独响应的response')
-      return res
-    }
-  },
-  showLoading: true
-})
+// const res = hyRequest.request({
+//   url: '/home/multidata',
+//   method: 'GET',
+//   headers: {},
+//   interceptors: {
+//     requestInterceptor: (config) => {
+//       console.log('单独请求的config')
+//       return config
+//     },
+//     resonpseInterceptor: (res) => {
+//       console.log('单独响应的response')
+//       return res
+//     }
+//   },
+//   showLoading: true
+// })
 
-console.log(res)
+// console.log(res)
 
 // interface DataType {
 //   data: any
