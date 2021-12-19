@@ -15,11 +15,14 @@
 import { ElForm } from 'element-plus'
 import { defineComponent, reactive, ref } from 'vue'
 import localCache from '@/utils/cache'
-
 import { rules } from '../config/account-config'
+
+import { useStore } from 'vuex'
 
 export default defineComponent({
   setup() {
+    const store = useStore()
+
     const account = reactive({
       name: localCache.getCache('name') ?? '',
       password: localCache.getCache('password') ?? ''
@@ -41,7 +44,7 @@ export default defineComponent({
             localCache.deleteCache('password')
           }
           // 2.开始进行登录验证
-          console.log('执行登录逻辑')
+          store.dispatch('login/accountLoginAction', { ...account })
         }
       })
     }
