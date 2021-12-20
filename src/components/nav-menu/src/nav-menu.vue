@@ -11,47 +11,45 @@
       text-color="#b7bdc3"
       active-text-color="#0a60bd"
     >
-      <el-sub-menu index="1">
-        <template #title>
-          <el-icon><location /></el-icon>
-          <span>Navigator One</span>
+      <template v-for="item in userMenus" :key="item.id">
+        <!-- 二级菜单(可展开不可点击) -->
+        <template v-if="item.type === 1">
+          <!-- 二级菜单的标题(点击可以展开) -->
+          <el-sub-menu :index="item.id + ''">
+            <template #title>
+              <i v-if="item.icon" :class="item.icon"></i>
+              <!-- <el-icon> <monitor></monitor> </el-icon> -->
+              <span>{{ item.name }}</span>
+            </template>
+            <!-- 遍历item里面的children -->
+            <template v-for="subitem in item.children" :key="subitem.id">
+              <el-menu-item :index="subitem.id + ''">
+                <i v-if="subitem.icon" :class="subitem.icon"></i>
+                <span>{{ subitem.name }}</span>
+              </el-menu-item>
+            </template>
+          </el-sub-menu>
         </template>
-        <el-menu-item-group title="Group One">
-          <el-menu-item index="1-1">item one</el-menu-item>
-          <el-menu-item index="1-2">item one</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="Group Two">
-          <el-menu-item index="1-3">item three</el-menu-item>
-        </el-menu-item-group>
-        <el-sub-menu index="1-4">
-          <template #title>item four</template>
-          <el-menu-item index="1-4-1">item one</el-menu-item>
-        </el-sub-menu>
-      </el-sub-menu>
-      <el-menu-item index="2">
-        <el-icon><icon-menu /></el-icon>
-        <span>Navigator Two</span>
-      </el-menu-item>
-      <el-menu-item index="3" disabled>
-        <el-icon><document /></el-icon>
-        <span>Navigator Three</span>
-      </el-menu-item>
-      <el-menu-item index="4">
-        <el-icon><setting /></el-icon>
-        <span>Navigator Four</span>
-      </el-menu-item>
+        <!-- 一级菜单(可直接点击) -->
+        <template v-else-if="item.type === 2">
+          <el-menu-item :index="item.id + ''">
+            <i v-if="item.icon" :class="item.icon"></i>
+            <span>{{ item.name }}</span>
+          </el-menu-item>
+        </template>
+      </template>
     </el-menu>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { useStore } from '@/store'
 
 export default defineComponent({
   setup() {
     const store = useStore()
-    const userMenus = store.state.login.userMenus
+    const userMenus = computed(() => store.state.login.userMenus)
 
     console.log('nav-menu', userMenus)
 
