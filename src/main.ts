@@ -13,7 +13,8 @@ import router from './router'
 import store from './store'
 
 // import './service/axios_demo'
-import hyRequest from './service'
+// import hyRequest from './service'
+import { setupStore } from './store'
 
 const app = createApp(App)
 app.use(router)
@@ -23,6 +24,8 @@ app.use(ElementPlus)
 for (const name in Icons) {
   app.component(name, (Icons as any)[name])
 }
+// 页面加载之前先从localStorage中把name,userInfo,userMenu整到store里面去
+setupStore()
 app.mount('#app')
 // console.log(process.env.NODE_ENV)
 
