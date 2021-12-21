@@ -7,6 +7,7 @@
     <el-menu
       default-active="2"
       class="el-menu-vertical"
+      :collapse="collapse"
       background-color="#0c2135"
       text-color="#b7bdc3"
       active-text-color="#0a60bd"
@@ -47,6 +48,12 @@ import { computed, defineComponent } from 'vue'
 import { useStore } from '@/store'
 
 export default defineComponent({
+  props: {
+    collapse: {
+      type: Boolean,
+      default: false
+    }
+  },
   setup() {
     const store = useStore()
     const userMenus = computed(() => store.state.login.userMenus)
