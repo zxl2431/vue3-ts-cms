@@ -1,6 +1,9 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { RouteRecordRaw } from 'vue-router'
 
+//
+// import user from './main/system/user/user'
+
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
@@ -8,11 +11,24 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/main',
-    component: () => import('@/views/main/main.vue')
+    component: () => import('@/views/main/main.vue'),
+    children: [
+      {
+        path: '/main/system/user',
+        name: 'user',
+        component: () => import('@/views/main/system/user/user.vue'),
+        children: []
+      }
+    ]
   },
   {
     path: '/login',
     component: () => import('@/views/login/login.vue')
+  },
+  {
+    path: '/:pathMath(.*)*',
+    name: 'notFound',
+    component: () => import('@/views/not-found/not-found.vue')
   }
 ]
 

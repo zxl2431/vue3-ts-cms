@@ -8,7 +8,11 @@
         <el-header class="page-header">
           <nav-header @foldChange="handleFoldChange"></nav-header>
         </el-header>
-        <el-main class="page-content">Main</el-main>
+        <el-main class="page-content">
+          <div class="page-info">
+            <router-view></router-view>
+          </div>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -27,7 +31,7 @@ export default defineComponent({
   setup() {
     const isCollapse = ref(false)
     const handleFoldChange = (isFold: boolean) => {
-      console.log('main.vue收到ifFold:', isFold)
+      // console.log('main.vue收到ifFold:', isFold)
       isCollapse.value = isFold
     }
 
@@ -55,6 +59,11 @@ export default defineComponent({
 
 .page-content {
   height: calc(100% - 48px);
+}
+
+.page-info {
+  background-color: #fff;
+  border-radius: 5px;
 }
 
 .el-header,
