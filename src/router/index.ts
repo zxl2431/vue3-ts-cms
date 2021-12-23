@@ -7,12 +7,14 @@ import user from './main/system/user/user'
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
+    name: 'login',
     redirect: '/login'
   },
   {
     path: '/main',
-    component: () => import('@/views/main/main.vue'),
-    children: [user]
+    name: 'main',
+    component: () => import('@/views/main/main.vue')
+    // children: [user]
   },
   {
     path: '/login',

@@ -71,7 +71,7 @@ export default defineComponent({
       })
     }
 
-    console.log('nav-menu', userMenus)
+    // console.log('nav-menu', userMenus)
 
     return {
       userMenus,
