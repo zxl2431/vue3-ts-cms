@@ -6,6 +6,7 @@ import {
   requestUserMenusByRoleId
 } from '@/service/login/login'
 import localCache from '@/utils/cache'
+import { mapMenusToRoutes } from '@/utils/map-menus'
 import router from '@/router'
 
 import { ILoginState } from './types'
@@ -31,6 +32,15 @@ const loginModule: Module<ILoginState, IRootState> = {
     },
     changeUserMenus(state, userMenus) {
       state.userMenus = userMenus
+      console.log('注册动态路由')
+
+      // 将获取到的用户菜单编程路由对象s
+      const routes = mapMenusToRoutes(userMenus)
+
+      // 将拿到的routes添加到 router中去
+      // routes.forEach((route) => {
+      //   router.addRoute('main', route)
+      // })
     }
   },
   actions: {
