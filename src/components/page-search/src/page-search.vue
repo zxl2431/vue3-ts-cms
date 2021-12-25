@@ -1,6 +1,6 @@
 <template>
   <div class="page-search">
-    <hy-form v-bind="searchFormConfig">
+    <hy-form v-bind="searchFormConfig" v-model="formData">
       <template #header>
         <h1 class="header">高级检索</h1>
       </template>
@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import HyForm from '@/base-ui/form'
 
 export default defineComponent({
@@ -29,7 +29,17 @@ export default defineComponent({
     HyForm
   },
   setup() {
-    return {}
+    const formData = ref({
+      id: '',
+      name: '',
+      password: '',
+      sport: '',
+      createTime: ''
+    })
+
+    return {
+      formData
+    }
   }
 })
 </script>

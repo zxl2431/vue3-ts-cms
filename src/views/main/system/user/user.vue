@@ -19,7 +19,11 @@ export default defineComponent({
   setup() {
     const store = useStore()
     store.dispatch('system/getPageListAction', {
-      pageUrl: '/users/list'
+      pageUrl: '/users/list',
+      queryInfo: {
+        offset: 0,
+        size: 10
+      }
     })
 
     return { searchFormConfig }
