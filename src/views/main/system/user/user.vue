@@ -14,6 +14,13 @@ export default defineComponent({
   },
   setup() {
     const searchFormConfig = {
+      labelWidth: '120px',
+      itemStyle: {
+        padding: '10px 40px'
+      },
+      colLayout: {
+        span: 8
+      },
       formItems: [
         {
           type: 'input',

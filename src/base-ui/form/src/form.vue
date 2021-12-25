@@ -1,10 +1,14 @@
 <template>
   <div class="hy-form">
-    <el-form label-width="120px">
+    <el-form :label-width="labelWidth">
       <el-row>
         <template v-for="item in formItems" :key="item.label">
-          <el-col :span="8">
-            <el-form-item :label="item.label" :rules="item.rules">
+          <el-col v-bind="colLayout">
+            <el-form-item
+              :label="item.label"
+              :rules="item.rules"
+              :style="itemStyle"
+            >
               <template
                 v-if="item.type === 'input' || item.type === 'password'"
               >
@@ -51,9 +55,27 @@ export default defineComponent({
     formItems: {
       type: Array as PropType<IFormItem[]>,
       default: () => []
+    },
+    labelWidth: {
+      type: String,
+      default: '100px'
+    },
+    itemStyle: {
+      type: Object,
+      default: () => ({ padding: '10px 40px' })
+    },
+    colLayout: {
+      type: Object,
+      default: () => ({
+        xl: 6, // >1920px 4个
+        lg: 8,
+        md: 12,
+        sm: 24,
+        xs: 24
+      })
     }
   },
-  setup(props) {
+  setup() {
     // console.log('form.vue:', props.formItems)
 
     return {}
@@ -61,4 +83,8 @@ export default defineComponent({
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.hy-form {
+  padding-top: 22px;
+}
+</style>
