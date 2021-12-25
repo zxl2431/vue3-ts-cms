@@ -42,5 +42,11 @@ router.beforeEach((to) => {
 
   console.log('导航守卫获取路由信息', router.getRoutes)
   console.log('导航守卫要跳转的路径', to)
+
+  // if (to.path.indexOf('/main') !== -1) {
+  //   if (to.name === 'notFound') {
+  //     to.name = 'user'
+  //   }
+  // }
 })
 export default router
