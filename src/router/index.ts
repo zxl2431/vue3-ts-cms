@@ -1,8 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { RouteRecordRaw } from 'vue-router'
 
-//
-import user from './main/system/user/user'
+import LocalCache from '@/utils/cache'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -32,4 +31,16 @@ const router = createRouter({
   history: createWebHashHistory()
 })
 
+// 导航守卫 跳转之前做一些操作
+router.beforeEach((to) => {
+  if (to.path !== '/login') {
+    const token = LocalCache.getCache('token')
+    if (!token) {
+      return './login'
+    }
+  }
+
+  console.log('导航守卫获取路由信息', router.getRoutes)
+  console.log('导航守卫要跳转的路径', to)
+})
 export default router
