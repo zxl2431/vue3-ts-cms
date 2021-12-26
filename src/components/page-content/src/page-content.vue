@@ -1,6 +1,6 @@
 <template>
   <div class="page-content">
-    <hy-table :listData="dataList" :propList="propList">
+    <hy-table :listData="dataList" v-bind="contentTableConfig">
       <!-- 1.header中的插槽 -->
       <template #headerHandler>
         <el-button type="primary" size="medium">新建用户</el-button>
@@ -49,8 +49,8 @@ export default defineComponent({
     HyTable
   },
   props: {
-    propList: {
-      type: Array,
+    contentTableConfig: {
+      type: Object,
       required: true
     },
     pageName: {
