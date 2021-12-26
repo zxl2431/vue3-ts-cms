@@ -23,20 +23,26 @@ const systemModule: Module<ISystemState, IRootState> = {
 
   actions: {
     async getPageListAction({ commit }, payload: any) {
-      console.log(payload.pageUrl)
-      console.log(payload.queryInfo)
+      // console.log(payload.pageUrl)
+      // console.log(payload.queryInfo)
 
-      // 1.对页面发送请求
-      const pageResult = await getPageListData(
-        payload.pageUrl,
-        payload.queryInfo
-      )
+      // 1.获取pageUrl
+      const pageName = payload.pageName
+      const pageUrl = `/${pageName}/list`
 
-      console.log('system/user请求的数据', pageResult)
+      // 2.对页面发送请求
+      const pageResult = await getPageListData(pageUrl, payload.queryInfo)
 
+      // console.log('system/user请求的数据', pageResult)
+
+      // 3.将数据存储到state中
       const { list, totalCount } = pageResult.data
-      commit('changeUserList', list)
-      commit('changeUserCount', totalCount)
+
+      // 把pageName的首字母大写
+      const changePageName =
+        pageName.slice(0, 1).toUpperCase() + pageName.slice(1)
+      commit(`change${changePageName}List`, list)
+      commit(`change${changePageName}Count`, totalCount)
     }
   }
 }
