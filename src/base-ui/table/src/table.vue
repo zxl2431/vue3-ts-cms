@@ -10,7 +10,12 @@
       </slot>
     </div>
     <!-- 这里是表格 -->
-    <el-table :data="listData" border style="width: 100%">
+    <el-table
+      :data="listData"
+      border
+      style="width: 100%"
+      @selection-change="handleSelectionChange"
+    >
       <!-- 是否展示选中框 -->
       <el-table-column
         v-if="showSelectColumn"
@@ -84,8 +89,18 @@ export default defineComponent({
       default: false
     }
   },
-  setup() {
-    return {}
+  emits: ['selectionChange'],
+
+  setup(props, { emit }) {
+    const handleSelectionChange = (value: any) => {
+      console.log('table组件:', value)
+
+      emit('selectionChange', value)
+    }
+
+    return {
+      handleSelectionChange
+    }
   }
 })
 </script>
