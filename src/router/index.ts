@@ -2,12 +2,12 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import { RouteRecordRaw } from 'vue-router'
 
 import LocalCache from '@/utils/cache'
+import { firstMenu } from '@/utils/map-menus'
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    name: 'login',
-    redirect: '/login'
+    redirect: '/main'
   },
   {
     path: '/main',
@@ -16,6 +16,7 @@ const routes: RouteRecordRaw[] = [
     // children: [user]
   },
   {
+    name: 'login',
     path: '/login',
     component: () => import('@/views/login/login.vue')
   },
@@ -48,5 +49,9 @@ router.beforeEach((to) => {
   //     to.name = 'user'
   //   }
   // }
+
+  if (to.path === '/main') {
+    return firstMenu.url
+  }
 })
 export default router
