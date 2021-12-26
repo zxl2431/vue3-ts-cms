@@ -3,7 +3,14 @@
     <page-search :searchFormConfig="searchFormConfig" />
 
     <div class="content">
-      <hy-table :listData="userList" :propList="propList"></hy-table>
+      <hy-table :listData="userList" :propList="propList">
+        <template #status="scope">
+          <el-button>{{ scope.row.enable ? '启用' : '禁用' }}</el-button>
+        </template>
+        <template #createAt="scope">
+          <strong>{{ scope.row.createAt }}</strong>
+        </template>
+      </hy-table>
     </div>
   </div>
 </template>
