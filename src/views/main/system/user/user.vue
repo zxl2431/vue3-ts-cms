@@ -3,14 +3,8 @@
     <page-search :searchFormConfig="searchFormConfig" />
 
     <div class="content">
-      <hy-table :listData="userList" :propList="propList">
-        <template #status="scope">
-          <el-button>{{ scope.row.enable ? '启用' : '禁用' }}</el-button>
-        </template>
-        <template #createAt="scope">
-          <strong>{{ scope.row.createAt }}</strong>
-        </template>
-      </hy-table>
+      <page-content :listData="userList" :propList="propList" pageName="users">
+      </page-content>
     </div>
   </div>
 </template>
@@ -22,13 +16,13 @@ import { useStore } from '@/store'
 import PageSearch from '@/components/page-search'
 import { searchFormConfig } from './config/search.config'
 
-import HyTable from '@/base-ui/table'
+import PageContent from '@/components/page-content'
 
 export default defineComponent({
   name: 'user',
   components: {
     PageSearch,
-    HyTable
+    PageContent
   },
   setup() {
     const store = useStore()
