@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
+import { globalRegister } from './global'
+
 import './assets/css/index.less'
 
 // 全局引入element-plus组件
@@ -17,6 +19,10 @@ import store from './store'
 import { setupStore } from './store'
 
 const app = createApp(App)
+
+//注册一下全局的东西
+app.use(globalRegister)
+
 app.use(store)
 // 页面加载之前先从localStorage中把name,userInfo,userMenu整到store里面去
 // 这个里面会配置动态路由

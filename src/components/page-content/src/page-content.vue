@@ -17,12 +17,12 @@
         </el-button>
       </template>
       <template #createAt="scope">
-        <!-- <span>{{ $filters.formatTime(scope.row.createAt) }}</span> -->
-        <span>{{ scope.row.createAt }}</span>
+        <span>{{ $filters.formatTime(scope.row.createAt) }}</span>
+        <!-- <span>{{ scope.row.createAt }}</span> -->
       </template>
       <template #updateAt="scope">
-        <!-- <span>{{ $filters.formatTime(scope.row.updateAt) }}</span> -->
-        <span>{{ scope.row.updateAt }}</span>
+        <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
+        <!-- <span>{{ scope.row.updateAt }}</span> -->
       </template>
       <template #handler>
         <div class="handle-btns">
