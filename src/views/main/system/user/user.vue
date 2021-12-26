@@ -3,15 +3,13 @@
     <page-search :searchFormConfig="searchFormConfig" />
 
     <div class="content">
-      <page-content :listData="userList" :propList="propList" pageName="users">
-      </page-content>
+      <page-content :propList="propList" pageName="users"> </page-content>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
-import { useStore } from '@/store'
+import { defineComponent } from 'vue'
 
 import PageSearch from '@/components/page-search'
 import { searchFormConfig } from './config/search.config'
@@ -25,18 +23,6 @@ export default defineComponent({
     PageContent
   },
   setup() {
-    const store = useStore()
-    store.dispatch('system/getPageListAction', {
-      pageUrl: '/users/list',
-      queryInfo: {
-        offset: 0,
-        size: 10
-      }
-    })
-
-    const userList = computed(() => store.state.system.userList)
-    // const userCount = computed(() => store.state.system.userCount)
-
     const propList = [
       { prop: 'name', label: '用户名', minWidth: '100' },
       { prop: 'realname', label: '真实姓名', minWidth: '100' },
@@ -58,7 +44,6 @@ export default defineComponent({
 
     return {
       searchFormConfig,
-      userList,
       propList
     }
   }
