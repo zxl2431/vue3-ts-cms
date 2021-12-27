@@ -28,14 +28,18 @@ export default defineComponent({
   components: {
     HyForm
   },
-  setup() {
-    const formData = ref({
-      id: '',
-      name: '',
-      password: '',
-      sport: '',
-      createTime: ''
-    })
+
+  setup(props) {
+    // 双向绑定的属性应该是有配置文件的field来决定
+    // 1.优化一: formData中的属性应该动态来决定
+    const formItems = props.searchFormConfig?.formItems ?? []
+    const formOriginData: any = {}
+    for (const item of formItems) {
+      formOriginData[item.field] = ''
+    }
+    const formData = ref(formOriginData)
+
+    console.log('page-search组件中formData的初始值', formData)
 
     return {
       formData
