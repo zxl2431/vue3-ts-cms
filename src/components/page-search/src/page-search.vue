@@ -49,7 +49,7 @@ export default defineComponent({
     // 3.优化三: 当用户点击搜索
     const handleQueryClick = () => {
       // console.log('用户点击搜索')
-      emit('queryBtnClick')
+      emit('queryBtnClick', formData.value)
     }
 
     return {

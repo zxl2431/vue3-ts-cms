@@ -58,13 +58,20 @@ export default defineComponent({
     // console.log('page-content组件:', props.pageName)
 
     const store = useStore()
-    store.dispatch('system/getPageListAction', {
-      pageName: props.pageName,
-      queryInfo: {
-        offset: 0,
-        size: 10
-      }
-    })
+
+    // 发送网络请求
+    const getPageData = (queryInfo: any = {}) => {
+      store.dispatch('system/getPageListAction', {
+        pageName: props.pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10,
+          ...queryInfo
+        }
+      })
+    }
+
+    getPageData()
 
     const dataList = computed(() =>
       store.getters[`system/pageListData`](props.pageName)
@@ -73,7 +80,8 @@ export default defineComponent({
     // console.log('page-content组件:', dataList)
 
     return {
-      dataList
+      dataList,
+      getPageData
     }
   }
 })
