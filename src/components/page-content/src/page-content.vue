@@ -1,6 +1,11 @@
 <template>
   <div class="page-content">
-    <hy-table :listData="dataList" v-bind="contentTableConfig">
+    <hy-table
+      :listData="dataList"
+      :listCount="dataCount"
+      v-bind="contentTableConfig"
+      v-model:page="pageInfo"
+    >
       <!-- 1.header中的插槽 -->
       <template #headerHandler>
         <el-button type="primary" size="medium">新建用户</el-button>
@@ -35,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, ref, watch } from 'vue'
 import HyTable from '@/base-ui/table'
 
 import { useStore } from '@/store'
@@ -56,16 +61,19 @@ export default defineComponent({
   },
   setup(props) {
     // console.log('page-content组件:', props.pageName)
-
     const store = useStore()
+
+    // 1.双向绑定
+    const pageInfo = ref({ currentPage: 0, pageSize: 10 })
+    watch(pageInfo, () => getPageData())
 
     // 发送网络请求
     const getPageData = (queryInfo: any = {}) => {
       store.dispatch('system/getPageListAction', {
         pageName: props.pageName,
         queryInfo: {
-          offset: 0,
-          size: 10,
+          offset: pageInfo.value.currentPage * pageInfo.value.pageSize,
+          size: pageInfo.value.pageSize,
           ...queryInfo
         }
       })
@@ -76,12 +84,17 @@ export default defineComponent({
     const dataList = computed(() =>
       store.getters[`system/pageListData`](props.pageName)
     )
+    const dataCount = computed(() =>
+      store.getters[`system/pageListCount`](props.pageName)
+    )
 
     // console.log('page-content组件:', dataList)
 
     return {
       dataList,
-      getPageData
+      dataCount,
+      getPageData,
+      pageInfo
     }
   }
 })
