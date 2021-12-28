@@ -35,6 +35,17 @@
           <el-button size="mini" type="text">删除</el-button>
         </div>
       </template>
+
+      <!-- 在page-content中动态插入剩余的插槽 -->
+      <template
+        v-for="item in otherPropSlots"
+        :key="item.prop"
+        #[item.slotName]="scope"
+      >
+        <template v-if="item.slotName">
+          <slot :name="item.slotName" :row="scope.row"></slot>
+        </template>
+      </template>
     </hy-table>
   </div>
 </template>
@@ -67,7 +78,7 @@ export default defineComponent({
     const pageInfo = ref({ currentPage: 1, pageSize: 10 })
     watch(pageInfo, () => getPageData())
 
-    // 发送网络请求
+    // 2.发送网络请求
     const getPageData = (queryInfo: any = {}) => {
       // console.log('page-content组件', pageInfo)
 
@@ -83,6 +94,7 @@ export default defineComponent({
 
     getPageData()
 
+    // 3.从vuex中获取数据
     const dataList = computed(() =>
       store.getters[`system/pageListData`](props.pageName)
     )
@@ -92,11 +104,23 @@ export default defineComponent({
 
     // console.log('page-content组件:', dataList)
 
+    // 4.获取其他的动态插槽
+    const otherPropSlots = props.contentTableConfig?.propList.filter(
+      (item: any) => {
+        if (item.slotName === 'status') return false
+        if (item.slotName === 'createAt') return false
+        if (item.slotName === 'updateAt') return false
+        if (item.slotName === 'handler') return false
+        return true
+      }
+    )
+
     return {
       dataList,
       dataCount,
+      pageInfo,
       getPageData,
-      pageInfo
+      otherPropSlots
     }
   }
 })
