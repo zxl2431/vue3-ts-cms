@@ -9,7 +9,9 @@ const systemModule: Module<ISystemState, IRootState> = {
   state() {
     return {
       usersList: [],
-      usersCount: 0
+      usersCount: 0,
+      roleList: [],
+      roleCount: 0
     }
   },
   mutations: {
@@ -18,6 +20,12 @@ const systemModule: Module<ISystemState, IRootState> = {
     },
     changeUsersCount(state, usersCount: number) {
       state.usersCount = usersCount
+    },
+    changeRoleList(state, roleList: any[]) {
+      state.roleList = roleList
+    },
+    changeRoleCount(state, roleCount: number) {
+      state.roleCount = roleCount
     }
   },
   getters: {
