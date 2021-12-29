@@ -36,6 +36,12 @@ const systemModule: Module<ISystemState, IRootState> = {
     },
     changeMenuCount(state, menuCount: number) {
       state.menuCount = menuCount
+    },
+    changeGoodsList(state, goodsList: any[]) {
+      state.goodsList = goodsList
+    },
+    changeGoodsCount(state, goodsCount: number) {
+      state.goodsCount = goodsCount
     }
   },
   getters: {
@@ -59,6 +65,8 @@ const systemModule: Module<ISystemState, IRootState> = {
       // 1.获取pageUrl
       const pageName = payload.pageName
       const pageUrl = `/${pageName}/list`
+
+      console.log('store/system-action发送网络请求的pageurl', pageUrl)
 
       // 2.对页面发送请求
       const pageResult = await getPageListData(pageUrl, payload.queryInfo)
