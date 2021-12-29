@@ -8,7 +8,9 @@
     >
       <!-- 1.header中的插槽 -->
       <template #headerHandler>
-        <el-button type="primary" size="medium">新建用户</el-button>
+        <el-button v-if="isCreate" type="primary" size="medium"
+          >新建用户</el-button
+        >
       </template>
 
       <!-- 2.列中的插槽 -->
@@ -31,8 +33,8 @@
       </template>
       <template #handler>
         <div class="handle-btns">
-          <el-button size="mini" type="text">编辑</el-button>
-          <el-button size="mini" type="text">删除</el-button>
+          <el-button v-if="isUpdate" size="mini" type="text">编辑</el-button>
+          <el-button v-if="isDelete" size="mini" type="text">删除</el-button>
         </div>
       </template>
 
@@ -55,6 +57,7 @@ import { computed, defineComponent, ref, watch } from 'vue'
 import HyTable from '@/base-ui/table'
 
 import { useStore } from '@/store'
+import { usePermission } from '@/hooks/use-permission'
 
 export default defineComponent({
   components: {
@@ -74,6 +77,12 @@ export default defineComponent({
     // console.log('page-content组件:', props.pageName)
     const store = useStore()
 
+    //0.获取操作权限
+    const isCreate = usePermission(props.pageName, 'create')
+    const isUpdate = usePermission(props.pageName, 'update')
+    const isDelete = usePermission(props.pageName, 'delete')
+    const isQuery = usePermission(props.pageName, 'query')
+
     // 1.双向绑定
     const pageInfo = ref({ currentPage: 1, pageSize: 10 })
     watch(pageInfo, () => getPageData())
@@ -81,7 +90,7 @@ export default defineComponent({
     // 2.发送网络请求
     const getPageData = (queryInfo: any = {}) => {
       // console.log('page-content组件', pageInfo)
-
+      if (!isQuery) return
       store.dispatch('system/getPageListAction', {
         pageName: props.pageName,
         queryInfo: {
@@ -120,7 +129,10 @@ export default defineComponent({
       dataCount,
       pageInfo,
       getPageData,
-      otherPropSlots
+      otherPropSlots,
+      isCreate,
+      isUpdate,
+      isDelete
     }
   }
 })
