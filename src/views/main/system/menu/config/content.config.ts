@@ -26,6 +26,7 @@ export const contentTableConfig = {
       children: 'children'
     }
   },
-  showIndexColumn: true,
-  showSelectColumn: true
+  showIndexColumn: false,
+  showSelectColumn: false,
+  showFooter: false
 }
