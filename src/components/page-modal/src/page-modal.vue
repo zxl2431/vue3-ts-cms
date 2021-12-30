@@ -25,15 +25,28 @@ export default defineComponent({
     modalConfig: {
       type: Object,
       required: true
+    },
+    defaultInfo: {
+      type: Object,
+      default: () => ({})
+    },
+    pageName: {
+      type: String,
+      require: true
     }
   },
   setup(props) {
     const dialogVisible = ref(false)
     const formData = ref<any>({})
 
-    // watch(
-    //   () => props.
-    // )
+    watch(
+      () => props.defaultInfo,
+      (newValue) => {
+        for (const item of props.modalConfig.formItems) {
+          formData.value[`${item.field}`] = newValue[`${item.field}`]
+        }
+      }
+    )
 
     return {
       dialogVisible,

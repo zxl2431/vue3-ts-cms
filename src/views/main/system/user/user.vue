@@ -14,7 +14,13 @@
         @newBtnClick="handleNewData"
       >
       </page-content>
-      <page-modal ref="pageModalRef" :modalConfig="modalConfig"> </page-modal>
+      <page-modal
+        ref="pageModalRef"
+        :modalConfig="modalConfig"
+        :defaultInfo="defaultInfo"
+        pageName="users"
+      >
+      </page-modal>
     </div>
   </div>
 </template>
@@ -45,9 +51,10 @@ export default defineComponent({
 
     // 新建、编辑、删除的逻辑
     const pageModalRef = ref<InstanceType<typeof PageModal>>()
+    const defaultInfo = ref({})
 
     const handleNewData = () => {
-      console.log('user组件点击新建用户')
+      // console.log('user组件点击新建用户')
       if (pageModalRef.value) {
         pageModalRef.value.dialogVisible = true
       }
@@ -61,7 +68,8 @@ export default defineComponent({
       handleQueryClick,
       pageContentRef,
       pageModalRef,
-      handleNewData
+      handleNewData,
+      defaultInfo
     }
   }
 })
