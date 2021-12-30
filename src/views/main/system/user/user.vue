@@ -11,14 +11,16 @@
         ref="pageContentRef"
         :contentTableConfig="contentTableConfig"
         pageName="users"
+        @newBtnClick="handleNewData"
       >
       </page-content>
+      <page-modal ref="pageModalRef"> </page-modal>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 // search-form组件
 import PageSearch from '@/components/page-search'
 import { searchFormConfig } from './config/search.config'
@@ -27,22 +29,37 @@ import PageContent from '@/components/page-content'
 import { contentTableConfig } from './config/content.config'
 // 实现功能的hook函数
 import { usePageSearch } from '@/hooks/use-page-search'
+// dialog弹框组件
+import PageModal from '@/components/page-modal'
 
 export default defineComponent({
   name: 'user',
   components: {
     PageSearch,
-    PageContent
+    PageContent,
+    PageModal
   },
   setup() {
     const [pageContentRef, handleResetClick, handleQueryClick] = usePageSearch()
+
+    // 新建、编辑、删除的逻辑
+    const pageModalRef = ref<InstanceType<typeof PageModal>>()
+
+    const handleNewData = () => {
+      console.log('user组件点击新建用户')
+      if (pageModalRef.value) {
+        pageModalRef.value.dialogVisible = true
+      }
+    }
 
     return {
       searchFormConfig,
       contentTableConfig,
       handleResetClick,
       handleQueryClick,
-      pageContentRef
+      pageContentRef,
+      pageModalRef,
+      handleNewData
     }
   }
 })

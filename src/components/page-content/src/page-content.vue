@@ -8,7 +8,11 @@
     >
       <!-- 1.header中的插槽 -->
       <template #headerHandler>
-        <el-button v-if="isCreate" type="primary" size="medium"
+        <el-button
+          v-if="isCreate"
+          type="primary"
+          size="medium"
+          @click="handleNewClick"
           >新建用户</el-button
         >
       </template>
@@ -73,7 +77,8 @@ export default defineComponent({
       require: true
     }
   },
-  setup(props) {
+  emits: ['newBtnClick', 'editBtnClick'],
+  setup(props, { emit }) {
     // console.log('page-content组件:', props.pageName)
     const store = useStore()
 
@@ -124,6 +129,11 @@ export default defineComponent({
       }
     )
 
+    // 5.新建、编辑、删除功能
+    const handleNewClick = () => {
+      emit('newBtnClick')
+    }
+
     return {
       dataList,
       dataCount,
@@ -132,7 +142,8 @@ export default defineComponent({
       otherPropSlots,
       isCreate,
       isUpdate,
-      isDelete
+      isDelete,
+      handleNewClick
     }
   }
 })
