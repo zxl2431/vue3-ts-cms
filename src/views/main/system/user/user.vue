@@ -14,7 +14,7 @@
         @newBtnClick="handleNewData"
       >
       </page-content>
-      <page-modal ref="pageModalRef"> </page-modal>
+      <page-modal ref="pageModalRef" :modalConfig="modalConfig"> </page-modal>
     </div>
   </div>
 </template>
@@ -31,6 +31,7 @@ import { contentTableConfig } from './config/content.config'
 import { usePageSearch } from '@/hooks/use-page-search'
 // dialog弹框组件
 import PageModal from '@/components/page-modal'
+import { modalConfig } from './config/modal.config'
 
 export default defineComponent({
   name: 'user',
@@ -55,6 +56,7 @@ export default defineComponent({
     return {
       searchFormConfig,
       contentTableConfig,
+      modalConfig,
       handleResetClick,
       handleQueryClick,
       pageContentRef,

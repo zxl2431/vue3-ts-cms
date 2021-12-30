@@ -1,18 +1,25 @@
 <template>
   <div class="page-modal">
-    <el-dialog v-model="dialogVisible"> 看看这个弹框行不行 </el-dialog>
-    <!-- <hy-form v-bind="modalConfig" v-model="formData"></hy-form> -->
+    <el-dialog
+      title="新建用户"
+      v-model="dialogVisible"
+      width="30%"
+      center
+      destroy-on-close
+    >
+      <hy-form v-bind="modalConfig" v-model="formData"></hy-form>
+    </el-dialog>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 
 import HyForm from '@/base-ui/form'
 
 export default defineComponent({
   components: {
-    // HyForm
+    HyForm
   },
   props: {
     modalConfig: {
@@ -22,8 +29,15 @@ export default defineComponent({
   },
   setup(props) {
     const dialogVisible = ref(false)
+    const formData = ref<any>({})
+
+    // watch(
+    //   () => props.
+    // )
+
     return {
-      dialogVisible
+      dialogVisible,
+      formData
     }
   }
 })
