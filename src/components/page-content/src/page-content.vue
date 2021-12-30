@@ -141,6 +141,6 @@ export default defineComponent({
 <style scoped>
 .page-content {
   padding: 20px;
-  border-top: 20px solid #f5f5f5;
+  /* border-top: 20px solid #f5f5f5; */
 }
 </style>
