@@ -16,7 +16,7 @@
       </page-content>
       <page-modal
         ref="pageModalRef"
-        :modalConfig="modalConfig"
+        :modalConfig="modalConfigRef"
         :defaultInfo="defaultInfo"
         pageName="users"
       >
@@ -26,7 +26,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
+import { useStore } from '@/store'
 // search-form组件
 import PageSearch from '@/components/page-search'
 import { searchFormConfig } from './config/search.config'
@@ -49,9 +50,31 @@ export default defineComponent({
   setup() {
     const [pageContentRef, handleResetClick, handleQueryClick] = usePageSearch()
 
-    // 新建、编辑、删除的逻辑
+    // 1.新建、编辑、删除的逻辑
     const pageModalRef = ref<InstanceType<typeof PageModal>>()
     const defaultInfo = ref({})
+
+    // 2.动态的添加部门和角色列表
+    const store = useStore()
+    const modalConfigRef = computed(() => {
+      const departmentItem = modalConfig.formItems.find(
+        (item) => item.field === 'departmentId'
+      )
+      console.log('user.vue的departmentItem:', departmentItem)
+      console.log('user.vue的entireDepartment:', store.state.entireDepartment)
+      // departmentItem!.options = store.state.entireDepartment.map((item) => {
+      //   return { title: item.name, value: item.id }
+      // })
+      const roleItem = modalConfig.formItems.find((item) => {
+        item.field === 'roleId'
+      })
+      // roleItem!.options = store.state.entireRole.map((item) => {
+      //   return { title: item.name, value: item.id }
+      // })
+      console.log('user.vue的modal配置文件:', modalConfig)
+
+      return modalConfig
+    })
 
     const handleNewData = () => {
       // console.log('user组件点击新建用户')
@@ -70,7 +93,8 @@ export default defineComponent({
       pageContentRef,
       pageModalRef,
       handleNewData,
-      defaultInfo
+      defaultInfo,
+      modalConfigRef
     }
   }
 })
