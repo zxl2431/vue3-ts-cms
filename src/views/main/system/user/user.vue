@@ -55,6 +55,7 @@ export default defineComponent({
 
     const handleNewData = () => {
       // console.log('user组件点击新建用户')
+      defaultInfo.value = {}
       if (pageModalRef.value) {
         pageModalRef.value.dialogVisible = true
       }

@@ -48,6 +48,7 @@ export default defineComponent({
     watch(
       () => props.defaultInfo,
       (newValue) => {
+        // console.log('page-modal组件,侦听props.defaultInfo', newValue)
         for (const item of props.modalConfig.formItems) {
           formData.value[`${item.field}`] = newValue[`${item.field}`]
         }
@@ -55,6 +56,7 @@ export default defineComponent({
     )
 
     const handleConfirmClick = () => {
+      dialogVisible.value = false
       console.log('page-modal组件,输入的数据:', formData.value)
     }
 
