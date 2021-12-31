@@ -8,6 +8,12 @@
       destroy-on-close
     >
       <hy-form v-bind="modalConfig" v-model="formData"></hy-form>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="dialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="handleConfirmClick">确定</el-button>
+        </span>
+      </template>
     </el-dialog>
   </div>
 </template>
@@ -48,9 +54,14 @@ export default defineComponent({
       }
     )
 
+    const handleConfirmClick = () => {
+      console.log('page-modal组件,输入的数据:', formData.value)
+    }
+
     return {
       dialogVisible,
-      formData
+      formData,
+      handleConfirmClick
     }
   }
 })
