@@ -14,3 +14,10 @@ export function deletePageData(url: string) {
     url: url
   })
 }
+
+export function editPageData(url: string, editData: any) {
+  return hyRequest.patch<IDataType>({
+    url: url,
+    data: editData
+  })
+}

@@ -22,6 +22,7 @@
 import { defineComponent, ref, watch } from 'vue'
 
 import HyForm from '@/base-ui/form'
+import store from '@/store'
 
 export default defineComponent({
   components: {
@@ -62,6 +63,11 @@ export default defineComponent({
       console.log('page-modal组件,输入的数据:', formData.value)
       if (Object.keys(props.defaultInfo).length) {
         console.log('page-modal组件编辑功能')
+        store.dispatch('system/editPageDataAction', {
+          pageName: props.pageName,
+          editData: { ...formData.value },
+          id: props.defaultInfo.id
+        })
       } else {
         console.log('page-modal组件新建用户')
       }

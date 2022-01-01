@@ -2,7 +2,11 @@ import { Module } from 'vuex'
 import { IRootState } from '@/store/types'
 import { ISystemState } from './types'
 
-import { getPageListData, deletePageData } from '@/service/main/system/system'
+import {
+  getPageListData,
+  deletePageData,
+  editPageData
+} from '@/service/main/system/system'
 
 const systemModule: Module<ISystemState, IRootState> = {
   namespaced: true,
@@ -58,6 +62,7 @@ const systemModule: Module<ISystemState, IRootState> = {
   },
 
   actions: {
+    // 获取pageList
     async getPageListAction({ commit }, payload: any) {
       // console.log(payload.pageUrl)
       // console.log(payload.queryInfo)
@@ -83,6 +88,7 @@ const systemModule: Module<ISystemState, IRootState> = {
       commit(`change${changePageName}Count`, totalCount)
     },
 
+    // 删除数据 以id
     async detelePageDataAction({ dispatch }, payload: any) {
       // 1.获取pageName和id
       const { pageName, id } = payload
@@ -92,6 +98,23 @@ const systemModule: Module<ISystemState, IRootState> = {
       await deletePageData(pageUrl)
 
       // 3.重新请求数据
+      dispatch('getPageListAction', {
+        pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10
+        }
+      })
+    },
+
+    // 编辑数据
+    async editPageDataAction({ dispatch }, payload: any) {
+      // 1.编辑数据的请求
+      const { pageName, editData, id } = payload
+      const pageUrl = `/${pageName}/${id}`
+      await editPageData(pageUrl, editData)
+
+      // 2.请求最新的数据
       dispatch('getPageListAction', {
         pageName,
         queryInfo: {
