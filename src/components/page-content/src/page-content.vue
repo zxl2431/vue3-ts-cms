@@ -142,14 +142,19 @@ export default defineComponent({
     )
 
     // 5.新建、编辑、删除功能
-    // 新建
+    // 新建功能
     const handleNewClick = () => {
       emit('newBtnClick')
     }
 
-    // 编辑
+    // 编辑功能
     const handleEditClick = (item: any) => {
       emit('editBtnClick', item)
+    }
+
+    // 删除功能
+    const handleDeleteClick = (item: any) => {
+      console.log('page-content组件点击删除功能', item)
     }
 
     return {
@@ -162,7 +167,8 @@ export default defineComponent({
       isUpdate,
       isDelete,
       handleNewClick,
-      handleEditClick
+      handleEditClick,
+      handleDeleteClick
     }
   }
 })
