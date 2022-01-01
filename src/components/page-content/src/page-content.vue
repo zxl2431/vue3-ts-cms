@@ -155,6 +155,10 @@ export default defineComponent({
     // 删除功能
     const handleDeleteClick = (item: any) => {
       console.log('page-content组件点击删除功能', item)
+      store.dispatch('system/detelePageDataAction', {
+        pageName: props.pageName,
+        id: item.id
+      })
     }
 
     return {
