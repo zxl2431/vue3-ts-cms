@@ -6,22 +6,21 @@
       @queryBtnClick="handleQueryClick"
     />
 
-    <div class="content">
-      <page-content
-        ref="pageContentRef"
-        :contentTableConfig="contentTableConfig"
-        pageName="users"
-        @newBtnClick="handleNewData"
-      >
-      </page-content>
-      <page-modal
-        ref="pageModalRef"
-        :modalConfig="modalConfigRef"
-        :defaultInfo="defaultInfo"
-        pageName="users"
-      >
-      </page-modal>
-    </div>
+    <page-content
+      ref="pageContentRef"
+      :contentTableConfig="contentTableConfig"
+      pageName="users"
+      @newBtnClick="handleNewData"
+      @editBtnClick="handleEditData"
+    >
+    </page-content>
+    <page-modal
+      ref="pageModalRef"
+      :modalConfig="modalConfigRef"
+      :defaultInfo="defaultInfo"
+      pageName="users"
+    >
+    </page-modal>
   </div>
 </template>
 
@@ -77,8 +76,16 @@ export default defineComponent({
     })
 
     const handleNewData = () => {
-      // console.log('user组件点击新建用户')
+      console.log('user组件点击新建')
       defaultInfo.value = {}
+      if (pageModalRef.value) {
+        pageModalRef.value.dialogVisible = true
+      }
+    }
+
+    const handleEditData = (item: any) => {
+      console.log('user组件点击编辑', item)
+      defaultInfo.value = { ...item }
       if (pageModalRef.value) {
         pageModalRef.value.dialogVisible = true
       }
@@ -93,6 +100,7 @@ export default defineComponent({
       pageContentRef,
       pageModalRef,
       handleNewData,
+      handleEditData,
       defaultInfo,
       modalConfigRef
     }
@@ -101,8 +109,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.content {
+/* .content {
   padding: 20px;
   border-top: 20px solid #f5f5f5;
-}
+} */
 </style>

@@ -35,10 +35,22 @@
         <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
         <!-- <span>{{ scope.row.updateAt }}</span> -->
       </template>
-      <template #handler>
+      <template #handler="scope">
         <div class="handle-btns">
-          <el-button v-if="isUpdate" size="mini" type="text">编辑</el-button>
-          <el-button v-if="isDelete" size="mini" type="text">删除</el-button>
+          <el-button
+            v-if="isUpdate"
+            size="mini"
+            type="text"
+            @click="handleEditClick(scope.row)"
+            >编辑</el-button
+          >
+          <el-button
+            v-if="isDelete"
+            size="mini"
+            type="text"
+            @click="handleDeleteClick(scope.row)"
+            >删除</el-button
+          >
         </div>
       </template>
 
@@ -130,8 +142,14 @@ export default defineComponent({
     )
 
     // 5.新建、编辑、删除功能
+    // 新建
     const handleNewClick = () => {
       emit('newBtnClick')
+    }
+
+    // 编辑
+    const handleEditClick = (item: any) => {
+      emit('editBtnClick', item)
     }
 
     return {
@@ -143,7 +161,8 @@ export default defineComponent({
       isCreate,
       isUpdate,
       isDelete,
-      handleNewClick
+      handleNewClick,
+      handleEditClick
     }
   }
 })
@@ -152,6 +171,6 @@ export default defineComponent({
 <style scoped>
 .page-content {
   padding: 20px;
-  /* border-top: 20px solid #f5f5f5; */
+  border-top: 20px solid #f5f5f5;
 }
 </style>

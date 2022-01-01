@@ -55,9 +55,16 @@ export default defineComponent({
       }
     )
 
+    // 点击确定按钮的逻辑
     const handleConfirmClick = () => {
       dialogVisible.value = false
+      console.log('page-modal组件,props.defaultInfo:', props.defaultInfo)
       console.log('page-modal组件,输入的数据:', formData.value)
+      if (Object.keys(props.defaultInfo).length) {
+        console.log('page-modal组件编辑功能')
+      } else {
+        console.log('page-modal组件新建用户')
+      }
     }
 
     return {
