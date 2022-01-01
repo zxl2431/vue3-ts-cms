@@ -70,6 +70,10 @@ export default defineComponent({
         })
       } else {
         console.log('page-modal组件新建用户')
+        store.dispatch('system/createPageDataAction', {
+          pageName: props.pageName,
+          newData: { ...formData.value }
+        })
       }
     }
 

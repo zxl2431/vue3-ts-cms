@@ -21,3 +21,10 @@ export function editPageData(url: string, editData: any) {
     data: editData
   })
 }
+
+export function createPageData(url: string, newData: any) {
+  return hyRequest.post<IDataType>({
+    url: url,
+    data: newData
+  })
+}
