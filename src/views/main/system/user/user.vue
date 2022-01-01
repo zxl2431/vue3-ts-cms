@@ -60,18 +60,18 @@ export default defineComponent({
       const departmentItem = modalConfig.formItems.find(
         (item) => item.field === 'departmentId'
       )
-      console.log('user.vue的departmentItem:', departmentItem)
-      console.log('user.vue的entireDepartment:', store.state.entireDepartment)
-      // departmentItem!.options = store.state.entireDepartment.map((item) => {
-      //   return { title: item.name, value: item.id }
-      // })
-      const roleItem = modalConfig.formItems.find((item) => {
-        item.field === 'roleId'
+      // console.log('user.vue的departmentItem:', departmentItem)
+      // console.log('user.vue的entireDepartment:', store.state.entireDepartment)
+      departmentItem!.options = store.state.entireDepartment.map((item) => {
+        return { title: item.name, value: item.id }
       })
-      // roleItem!.options = store.state.entireRole.map((item) => {
-      //   return { title: item.name, value: item.id }
-      // })
-      console.log('user.vue的modal配置文件:', modalConfig)
+      const roleItem = modalConfig.formItems.find(
+        (item) => item.field === 'roleId'
+      )
+      roleItem!.options = store.state.entireRole.map((item) => {
+        return { title: item.name, value: item.id }
+      })
+      // console.log('user.vue的modal配置文件:', modalConfig)
 
       return modalConfig
     })
