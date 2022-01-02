@@ -51,14 +51,16 @@ const loginModule: Module<ILoginState, IRootState> = {
     }
   },
   actions: {
-    async accountLoginAction({ commit }, payload) {
+    async accountLoginAction({ commit, dispatch }, payload) {
       // 1.实现登录逻辑 拿到token
-      console.log('store-login.ts发送登录请求', payload)
+      // console.log('store-login.ts发送登录请求', payload)
       const loginResult = await accountLoginRequest(payload)
-      console.log('store-login.ts接受登录请求的结果', loginResult)
+      // console.log('store-login.ts接受登录请求的结果', loginResult)
       const { id, token } = loginResult.data
       localCache.setCache('token', token)
       commit('changeToken', token)
+      // 发送初始化的请求(完整的role/department)
+      dispatch('getInitialDataAction', null, { root: true })
 
       // 2.请求用户数据
       const userInfoResult = await requestUserInfoById(id)
@@ -78,10 +80,12 @@ const loginModule: Module<ILoginState, IRootState> = {
       router.push('/main')
     },
 
-    loadLocalLogin({ commit }) {
+    loadLocalLogin({ commit, dispatch }) {
       const token = localCache.getCache('token')
       if (token) {
         commit('changeToken', token)
+        // 发送初始化的请求(完整的role/department)
+        dispatch('getInitialDataAction', null, { root: true })
       }
       const userInfo = localCache.getCache('userInfo')
       if (userInfo) {
