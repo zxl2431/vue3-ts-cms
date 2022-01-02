@@ -37,7 +37,7 @@ router.beforeEach((to) => {
   if (to.path !== '/login') {
     const token = LocalCache.getCache('token')
     if (!token) {
-      return './login'
+      return '/login'
     }
   }
 
@@ -51,6 +51,7 @@ router.beforeEach((to) => {
   // }
 
   if (to.path === '/main') {
+    console.log('router/index.ts', firstMenu)
     return firstMenu.url
   }
 })
