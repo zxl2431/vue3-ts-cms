@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { useStore } from '@/store'
 // search-form组件
 import PageSearch from '@/components/page-search'
@@ -35,6 +35,7 @@ import PageContent from '@/components/page-content'
 import { contentTableConfig } from './config/content.config'
 // 实现功能的hook函数
 import { usePageSearch } from '@/hooks/use-page-search'
+import { usePageModal } from '@/hooks/use-page-modal'
 // dialog弹框组件
 import PageModal from '@/components/page-modal'
 import { modalConfig } from './config/modal.config'
@@ -49,7 +50,7 @@ export default defineComponent({
   setup() {
     const [pageContentRef, handleResetClick, handleQueryClick] = usePageSearch()
 
-    // pageModal相关的hook
+    // 1.pageModal相关的hook
     // 处理密码的逻辑
     const newCallback = () => {
       const passwordItem = modalConfig.formItems.find(
@@ -64,10 +65,6 @@ export default defineComponent({
       )
       passwordItem!.isHidden = true
     }
-
-    // 1.新建、编辑、删除的逻辑
-    const pageModalRef = ref<InstanceType<typeof PageModal>>()
-    const defaultInfo = ref({})
 
     // 2.动态的添加部门和角色列表
     const store = useStore()
@@ -91,25 +88,9 @@ export default defineComponent({
       return modalConfig
     })
 
-    const handleNewData = () => {
-      console.log('user组件点击新建')
-      defaultInfo.value = {}
-      if (pageModalRef.value) {
-        pageModalRef.value.dialogVisible = true
-      }
-
-      newCallback && newCallback()
-    }
-
-    const handleEditData = (item: any) => {
-      console.log('user组件点击编辑', item)
-      defaultInfo.value = { ...item }
-      if (pageModalRef.value) {
-        pageModalRef.value.dialogVisible = true
-      }
-
-      editCallback && editCallback()
-    }
+    // 3.调用hook获取功能变量和函数
+    const [pageModalRef, defaultInfo, handleNewData, handleEditData] =
+      usePageModal(newCallback, editCallback)
 
     return {
       searchFormConfig,
