@@ -9,12 +9,13 @@ export function formatUtcString(
   utcString: string,
   format: string = DATE_TIME_FORMAT
 ) {
-  return dayjs.utc(utcString).format(format)
+  // 把事件设置成东八区时间
+  return dayjs.utc(utcString).utcOffset(8).format(format)
 }
 
-export function formatTimestamp(
-  timestamp: number,
-  format: string = DATE_TIME_FORMAT
-) {
-  return ''
-}
+// export function formatTimestamp(
+//   timestamp: number,
+//   format: string = DATE_TIME_FORMAT
+// ) {
+//   return ''
+// }
