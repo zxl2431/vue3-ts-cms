@@ -49,6 +49,22 @@ export default defineComponent({
   setup() {
     const [pageContentRef, handleResetClick, handleQueryClick] = usePageSearch()
 
+    // pageModal相关的hook
+    // 处理密码的逻辑
+    const newCallback = () => {
+      const passwordItem = modalConfig.formItems.find(
+        (item) => item.field === 'password'
+      )
+      passwordItem!.isHidden = false
+    }
+
+    const editCallback = () => {
+      const passwordItem = modalConfig.formItems.find(
+        (item) => item.field === 'password'
+      )
+      passwordItem!.isHidden = true
+    }
+
     // 1.新建、编辑、删除的逻辑
     const pageModalRef = ref<InstanceType<typeof PageModal>>()
     const defaultInfo = ref({})
@@ -81,6 +97,8 @@ export default defineComponent({
       if (pageModalRef.value) {
         pageModalRef.value.dialogVisible = true
       }
+
+      newCallback && newCallback()
     }
 
     const handleEditData = (item: any) => {
@@ -89,6 +107,8 @@ export default defineComponent({
       if (pageModalRef.value) {
         pageModalRef.value.dialogVisible = true
       }
+
+      editCallback && editCallback()
     }
 
     return {
