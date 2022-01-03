@@ -9,7 +9,7 @@ export function usePageModal(newCb?: CallbackFn, editCb?: CallbackFn) {
   const defaultInfo = ref({})
 
   const handleNewData = () => {
-    // console.log('user组件点击新建')
+    console.log('page-modal-hook组件点击新建')
     defaultInfo.value = {}
     if (pageModalRef.value) {
       pageModalRef.value.dialogVisible = true
@@ -18,7 +18,7 @@ export function usePageModal(newCb?: CallbackFn, editCb?: CallbackFn) {
   }
 
   const handleEditData = (item: any) => {
-    console.log('user组件点击编辑', item)
+    console.log('page-modal-hook组件点击编辑', item)
     defaultInfo.value = { ...item }
     if (pageModalRef.value) {
       pageModalRef.value.dialogVisible = true
