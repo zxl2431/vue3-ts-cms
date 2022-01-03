@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import PageModal from '@/components/page-modal'
 
-type CallbackFn = () => void
+type CallbackFn = (item?: any) => void
 
 export function usePageModal(newCb?: CallbackFn, editCb?: CallbackFn) {
   // 1.新建、编辑、删除的逻辑
@@ -23,7 +23,7 @@ export function usePageModal(newCb?: CallbackFn, editCb?: CallbackFn) {
     if (pageModalRef.value) {
       pageModalRef.value.dialogVisible = true
     }
-    editCb && editCb()
+    editCb && editCb(item)
   }
 
   return [pageModalRef, defaultInfo, handleNewData, handleEditData]

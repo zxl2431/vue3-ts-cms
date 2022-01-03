@@ -70,14 +70,14 @@ export default defineComponent({
         console.log('page-modal组件编辑功能')
         store.dispatch('system/editPageDataAction', {
           pageName: props.pageName,
-          editData: { ...formData.value },
+          editData: { ...formData.value, ...props.otherInfo },
           id: props.defaultInfo.id
         })
       } else {
         console.log('page-modal组件新建用户')
         store.dispatch('system/createPageDataAction', {
           pageName: props.pageName,
-          newData: { ...formData.value }
+          newData: { ...formData.value, ...props.otherInfo }
         })
       }
     }
