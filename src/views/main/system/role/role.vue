@@ -16,11 +16,24 @@
     :modalConfig="modalConfig"
     :defaultInfo="defaultInfo"
     pageName="role"
-  ></page-modal>
+  >
+    <div class="menu-tree">
+      <el-tree
+        :data="menus"
+        show-checkbox
+        node-key="id"
+        :default-expanded-keys="[2, 3]"
+        :default-checked-keys="[5]"
+        :props="{ children: 'children', label: 'name' }"
+      />
+    </div>
+  </page-modal>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
+import { useStore } from '@/store'
+
 // search-form组件
 import PageSearch from '@/components/page-search'
 import { searchFormConfig } from './config/search.config'
@@ -45,6 +58,10 @@ export default defineComponent({
     const [pageModalRef, defaultInfo, handleNewData, handleEditData] =
       usePageModal()
 
+    // 1.现获取所有的菜单
+    const store = useStore()
+    const menus = computed(() => store.state.entireMenu)
+
     return {
       searchFormConfig,
       contentTableConfig,
@@ -52,15 +69,15 @@ export default defineComponent({
       pageModalRef,
       defaultInfo,
       handleNewData,
-      handleEditData
+      handleEditData,
+      menus
     }
   }
 })
 </script>
 
 <style scoped>
-.content {
-  padding: 20px;
-  border-top: 20px solid #f5f5f5;
+.menu-tree {
+  margin-left: 25px;
 }
 </style>
