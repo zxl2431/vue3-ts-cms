@@ -2,7 +2,9 @@
   <div class="dashboard">
     <el-row :gutter="10">
       <el-col :span="7">
-        <hy-card title="分类商品数量(饼图)"> </hy-card>
+        <hy-card title="分类商品数量(饼图)">
+          <pie-echart :pieData="categoryGoodsCount"></pie-echart>
+        </hy-card>
       </el-col>
       <el-col :span="10">
         <hy-card title="分类商品数量(饼图)"> </hy-card>
@@ -29,16 +31,20 @@
 import { defineComponent, onMounted, ref } from 'vue'
 
 import HyCard from '@/base-ui/card'
-
-import * as echarts from 'echarts'
+import { PieEchart } from '@/components/page-echarts'
+import { useStore } from '@/store'
 
 export default defineComponent({
   name: 'dashboard',
   components: {
-    HyCard
+    HyCard,
+    PieEchart
   },
 
   setup() {
+    const store = useStore()
+    // 请求数据
+
     return {}
   }
 })
