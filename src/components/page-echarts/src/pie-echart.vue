@@ -38,7 +38,7 @@ export default defineComponent({
           name: 'Access From',
           type: 'pie',
           radius: '50%',
-          data: [],
+          data: props.pieData,
           emphasis: {
             itemStyle: {
               shadowBlur: 10,

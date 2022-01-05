@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, computed } from 'vue'
 
 import HyCard from '@/base-ui/card'
 import { PieEchart } from '@/components/page-echarts'
@@ -44,8 +44,18 @@ export default defineComponent({
   setup() {
     const store = useStore()
     // 请求数据
+    store.dispatch('dashboard/getDashboardDataAction')
 
-    return {}
+    // 获取数据
+    const categoryGoodsCount = computed(() => {
+      return store.state.dashboard.categoryGoodsCount.map((item: any) => {
+        return { name: item.name, value: item.goodsCount }
+      })
+    })
+
+    return {
+      categoryGoodsCount
+    }
   }
 })
 </script>
