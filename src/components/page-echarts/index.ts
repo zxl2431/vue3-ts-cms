@@ -1,3 +1,3 @@
 import PieEchart from './src/pie-echart.vue'
-
-export { PieEchart }
+import RoseEchart from './src/rose-echart.vue'
+export { PieEchart, RoseEchart }

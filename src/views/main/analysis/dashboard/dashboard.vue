@@ -7,10 +7,12 @@
         </hy-card>
       </el-col>
       <el-col :span="10">
-        <hy-card title="分类商品数量(饼图)"> </hy-card>
+        <hy-card title="不同城市商品销量"> </hy-card>
       </el-col>
       <el-col :span="7">
-        <hy-card title="分类商品数量(饼图)"> </hy-card>
+        <hy-card title="分类商品数量(玫瑰图)">
+          <rose-echart :roseData="categoryGoodsCount"></rose-echart>
+        </hy-card>
       </el-col>
     </el-row>
     <el-row :gutter="10" class="content-row">
@@ -31,14 +33,15 @@
 import { defineComponent, computed } from 'vue'
 
 import HyCard from '@/base-ui/card'
-import { PieEchart } from '@/components/page-echarts'
+import { PieEchart, RoseEchart } from '@/components/page-echarts'
 import { useStore } from '@/store'
 
 export default defineComponent({
   name: 'dashboard',
   components: {
     HyCard,
-    PieEchart
+    PieEchart,
+    RoseEchart
   },
 
   setup() {
